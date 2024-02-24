@@ -1,13 +1,14 @@
 <?php
-    $db_name = 'mysql:host=localhost:3306;dbname=blog_db';
-    $user_name = 'root';
-    $user_password = 'passcode1221';
+    
+    define('DB_SERVER', 'localhost');
+    define('DB_USERNAME', 'root');
+    define('DB_PASSWORD', '');
+    define('DB_NAME', 'blog_db');
 
-    try {
-        $conn = new PDO($db_name, $user_name, $user_password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    } catch(PDOException $e) {
-        die("Connection failed: " . $e->getMessage());
+    $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+    if($link === false){
+        die("ERROR" . mysqli_connect_error());
     }
 
     $sql = "SELECT * FROM events";
