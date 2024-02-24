@@ -1,23 +1,14 @@
 <?php
-    // Fetch database connection settings from environment variables
-    $db_host = $_ENV['DB_HOST'] ?? 'localhost';
-    $db_name = $_ENV['DB_NAME'] ?? 'blog_db';
-    $db_user = $_ENV['DB_USER'] ?? 'root';
-    $db_password = $_ENV['DB_PASSWORD'] ?? 'passcode1221';
+    $db_name = 'mysql:host=localhost:3306;dbname=blog_db';
+    $user_name = 'root';
+    $user_password = 'passcode1221';
 
-    // Construct the DSN (Data Source Name) for PDO
-    $dsn = "mysql:host=$db_host;dbname=$db_name";
-
-try {
-    // Create a new PDO instance using the database connection settings
-    $conn = new PDO($dsn, $db_user, $db_password);
-
-    // Set PDO attributes
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e) {
-    // Handle database connection errors
-    die("Connection failed: " . $e->getMessage());
-}
+    try {
+        $conn = new PDO($db_name, $user_name, $user_password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch(PDOException $e) {
+        die("Connection failed: " . $e->getMessage());
+    }
 
     $sql = "SELECT * FROM events";
     $result = $conn->query($sql);
